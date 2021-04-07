@@ -155,6 +155,79 @@ def do_encrypt():
 	insert_encryption(e, n, ','.join(map(str, encrypted)))
 	ui_continue()
 
+def do_decrypt():
+	ui_clear()
+	encryptions = get_encryptions()
+	available = []
+
+	for row in get_encryptions():
+		available.append(row)
+
+	if (len(available) == 0):
+		print("No existing encryptions exist")
+		ui_hr()
+		ui_continue()
+		return
+
+	print("Choose which text you want to decrypt")
+	ui_hr()
+
+	i = 1
+	for row in available:
+		_id, e, n, encrypted_text = row
+
+		print("%d) e = %d, n = %d, encrypted text = %s" % (i, e, n, encrypted_text))
+		i += 1
+
+	x = 0
+
+	while True:
+		x = int(input("> "))
+
+		if (x < 1 or x > len(available) + 1):
+			print("Invalid selection, please try again")
+		else:
+			break
+
+	choice = available[x - 1]
+	_id, e, n, encrypted_text = choice
+
+	# str[] -> int[]
+	encrypted = [int(numeric_string) for numeric_string in encrypted_text.split(",")]
+
+	ui_hr()
+	print("CALCULATIONS")
+	ui_hr()
+
+	p = 2
+	q = 0
+
+	while (n % p > 0):
+		p += 1
+
+	print("p = " + str(p))
+
+	q = n / p
+	print("q = " + str(q))
+
+	phi = (p - 1) * (q - 1)
+	print("phi = "+ str(phi))
+
+	private_key = gen_private_key(e, phi, n) 
+	pk_e, _ = private_key
+
+	print("d = " + str(private_key) + " (private key)")
+
+	ui_hr()
+	print("DECRYPTED RESULT")
+	ui_hr()
+
+	decrypted = decrypt(private_key, encrypted)
+	print(decrypted)
+
+	ui_br()
+	ui_continue()
+
 
 
 def main():
@@ -214,7 +287,7 @@ def main():
 		elif (x == 1):
 			do_encrypt()
 		elif (x == 2):
-			print("Doing decryption")
+			do_decrypt()
 		else:
 			ui_clear()
 			print("ERROR: Invalid option, please select again")
