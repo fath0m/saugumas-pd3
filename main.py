@@ -214,9 +214,9 @@ def do_decrypt():
 	print("phi = "+ str(phi))
 
 	private_key = gen_private_key(e, phi, n) 
-	pk_e, _ = private_key
+	pk_d, _ = private_key
 
-	print("d = " + str(private_key) + " (private key)")
+	print("d = " + str(pk_d) + " (private key)")
 
 	ui_hr()
 	print("DECRYPTED RESULT")
@@ -231,42 +231,6 @@ def do_decrypt():
 
 
 def main():
-	# p = 179
-	# q = 1229
-
-	# if is_prime(q) == False or is_prime(q) == False:
-	# 	print("Please provide prime numbers")
-	# 	return
-
-	# n = p * q
-	# phi = (p - 1) * (q - 1)
-
-	# public_key = gen_public_key(p, q, phi, n)
-
-	# e, n = public_key
-	
-	# print(public_key)
-	# text = "Jonas"
-
-	# # Try and get private key
-	# new_p = 2
-	# new_q = 0
-
-	# while (n % new_p > 0):
-	# 	new_p += 1
-
-	# new_q = n / new_p
-
-	# new_phi = (new_p - 1) * (new_q - 1)
-
-	# private_key = gen_private_key(e, new_phi, n)
-
-	# encrypted = encrypt(public_key, text)
-	# decrypted = decrypt(private_key, encrypted)
-
-	# print(encrypted)
-	# print(decrypted)
-
 	ui_clear()
 
 	while True:
@@ -277,8 +241,6 @@ def main():
 		print("2 - Decrypt a text")
 		print("0 - Exit")
 		ui_hr()
-
-		print(get_encryptions())
 
 		x = int(input("> "))
 
