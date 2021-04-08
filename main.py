@@ -124,6 +124,10 @@ def do_encrypt():
 			print("Number q is not a prime")
 			continue
 
+		if (p == q):
+			print("Values have to be different")
+			continue
+
 		break
 
 	ui_hr()
@@ -227,8 +231,6 @@ def do_decrypt():
 
 	ui_br()
 	ui_continue()
-
-
 
 def main():
 	ui_clear()
